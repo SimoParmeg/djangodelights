@@ -2,9 +2,9 @@
 
 ## User Login Information
 
-**Username**: ``
+**Username**: `djangoadmin`
 
-**Password**: ``
+**Password**: `django@dmin1234`
 
 ## Get Started
 
