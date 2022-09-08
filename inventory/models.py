@@ -10,12 +10,27 @@ class Ingredient(models.Model):
     unit = models.CharField(max_length=200)
     price_per_unit = models.FloatField(default=0.00)
 
+    def __str__(self):
+        return f"""
+        name = {self.name};
+        quantity = {self.quantity};
+        unit = {self.unit};
+        price_per_unit = {self.price_per_unit}
+        """
+
+    def get_absolute_url(self):
+        return "/ingredients"
+
 class MenuItem(models.Model):
     """
     Represents an entry in the restaurant's menu
     """
     title = models.CharField(max_length=200, unique=True)
     price = models.FloatField(default=0.00)
+
+    def __str__(self):
+        return f"title={self.title}; price={self.price}"
+
 
 class RecipeRequirement(models.Model):
     """
