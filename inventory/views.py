@@ -17,6 +17,11 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context["purchases"] = Purchase.objects.all()
         return context
 
+
+class IngredientsView(LoginRequiredMixin, ListView):
+    template_name = "inventory/ingredients.html"
+    model = Ingredient
+
 class ReportView(LoginRequiredMixin, TemplateView):
     template_name = "inventory/reports.html"
 

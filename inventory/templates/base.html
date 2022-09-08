@@ -1,5 +1,4 @@
 {% load static %}
-<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -22,6 +21,9 @@
       <p>Hi, {{ user.username }}!</p>
       <nav class="navbar">
         {% url 'home' as home_url %}
+        {% url 'ingredients' as ingredients_url %}
+        <a class="nav-item{% if request.path == home_url %} current-page{% endif %}" href="{% url 'home' %}">Home</a>
+        <a class="nav-item{% if request.path == ingredients_url %} current-page{% endif %}" href="{% url 'ingredients' %}">Ingredients</a>
       </nav>
     {% endif %}
   </header>
