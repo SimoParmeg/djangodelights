@@ -17,3 +17,20 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context["purchases"] = Purchase.objects.all()
         return context
 
+class ReportView(LoginRequiredMixin, TemplateView):
+    template_name = "inventory/reports.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["purchases"] = Purchase.objects.all()
+        revenue = Purchase.objects.aggregate(revenue=Sum("menu_item__price"))["revenue"]
+        total_cost = 0
+        for purchase in Purchase.objects.all():
+            for recipe_requirement in purchase.menu_item.reciperequirement_set.all():
+                total_cost += recipe_requirement.ingredient.price_per_unit * recipe_requirement.quantity
+
+        context["revenue"] = revenue
+        context["total_cost"] = total_cost
+        context["profit"] = revenue - total_cost
+
+        return context
