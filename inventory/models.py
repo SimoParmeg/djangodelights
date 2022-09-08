@@ -40,6 +40,10 @@ class RecipeRequirement(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     quantity = models.FloatField(default=0.00)
 
+    def __str__(self):
+        return f"menu_item={self.menu_item}; ingredients={self.ingredient.name}; quantity={self.quantity}"
+
+
 class Purchase(models.Model):
     """
     Represents a purchase of a MenuItem
