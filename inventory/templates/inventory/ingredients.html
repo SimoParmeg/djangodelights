@@ -5,7 +5,6 @@
 {% endblock %}
 {% block content %}
     <h2>Ingredients</h2>
-    <hr/>
     <table class="inventory-table">
         <thead>
             <tr>
@@ -13,6 +12,7 @@
                 <th>Quantity</th>
                 <th>Unit</th>
                 <th>Unit Price</th>
+                <th>Edits</th>
             </tr>
         </thead>
         <tbody>
@@ -21,9 +21,15 @@
                 <td>{{ ingredient.name }}</td>
                 <td>{{ ingredient.quantity }}</td>
                 <td>{{ ingredient.unit }}</td>
-                <td class="price">{{ ingredient.price_per_unit|stringformat:".2f" }}€</td>
+                <td class="price">{{ ingredient.price_per_unit|stringformat:".2f" }} €</td>
+                <td>
+                    <a href="{% url 'update_ingredient' ingredient.id %}">Update</a>
+                    <a>/</a>
+                    <a href="{% url 'delete_ingredient' ingredient.id %}">Delete</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    <hr/>
 {% endblock %}

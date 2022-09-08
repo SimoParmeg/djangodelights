@@ -3,6 +3,8 @@ from .models import MenuItem, RecipeRequirement, Ingredient, Purchase
 from django.views.generic import ListView, TemplateView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from .forms import IngredientForm
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
@@ -21,6 +23,16 @@ class HomeView(LoginRequiredMixin, TemplateView):
 class IngredientsView(LoginRequiredMixin, ListView):
     template_name = "inventory/ingredients.html"
     model = Ingredient
+
+class UpdateIngredientView(LoginRequiredMixin, UpdateView):
+    template_name = "inventory/update_ingredients.html"
+    model = Ingredient
+    form_class = IngredientForm
+
+class DeleteIngredientView(LoginRequiredMixin, DeleteView):
+    template_name = "inventory/delete_ingredients.html"
+    model = Ingredient
+    success_url = reverse_lazy('ingredients')
 
 class ReportView(LoginRequiredMixin, TemplateView):
     template_name = "inventory/reports.html"
