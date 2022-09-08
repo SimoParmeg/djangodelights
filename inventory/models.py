@@ -12,10 +12,10 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return f"""
-        name = {self.name};
-        quantity = {self.quantity};
-        unit = {self.unit};
-        price_per_unit = {self.price_per_unit}
+        name: {self.name};
+        quantity: {self.quantity};
+        unit: {self.unit};
+        price_per_unit: {self.price_per_unit}
         """
 
     def get_absolute_url(self):
@@ -29,11 +29,13 @@ class MenuItem(models.Model):
     price = models.FloatField(default=0.00)
 
     def __str__(self):
-        return f"title={self.title}; price={self.price}"
+        return f"""title: {self.title}; price: {self.price}"""
 
     def get_absolute_url(self):
         return "/menu"
 
+    def is_available(self):
+        return all(i.is_enough() for i in self.reciperequirement_set.all())
 
 class RecipeRequirement(models.Model):
     """
@@ -44,10 +46,14 @@ class RecipeRequirement(models.Model):
     quantity = models.FloatField(default=0.00)
 
     def __str__(self):
-        return f"menu_item=[{self.menu_item.__str__()}]; ingredients={self.ingredient.name}; quantity={self.quantity}"
+        return f"menu_item: {self.menu_item.title}; ingredients: {self.ingredient.name}; quantity: {self.quantity}"
 
     def get_absolute_url(self):
         return "/purchases"
+
+    def is_enough(self):
+        """return `True` if the ingredient quantity available meet the recipe's requirements"""
+        return self.ingredient.quantity >= self.quantity
 
 class Purchase(models.Model):
     """
@@ -57,7 +63,7 @@ class Purchase(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"menu_item=[{self.menu_item.__str__()}]; time={self.timestamp}"
+        return f"menu_item: {self.menu_item.title}; time: {self.timestamp}"
 
     def get_absolute_url(self):
         return "/purchases"
