@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
 class Ingredient(models.Model):
     """
     Represents a single ingredient in the restaurant's inventory
@@ -10,6 +10,9 @@ class Ingredient(models.Model):
     unit = models.CharField(max_length=200)
     price_per_unit = models.FloatField(default=0.00)
 
+    def get_absolute_url(self):
+        return "/ingredients"
+
     def __str__(self):
         return f"""
         name: {self.name};
@@ -18,8 +21,6 @@ class Ingredient(models.Model):
         price_per_unit: {self.price_per_unit}
         """
 
-    def get_absolute_url(self):
-        return "/ingredients"
 
 class MenuItem(models.Model):
     """
@@ -28,14 +29,12 @@ class MenuItem(models.Model):
     title = models.CharField(max_length=200, unique=True)
     price = models.FloatField(default=0.00)
 
-    def __str__(self):
-        return f"""title: {self.title}; price: {self.price}"""
-
     def get_absolute_url(self):
         return "/menu"
 
-    def is_available(self):
-        return all(i.is_enough() for i in self.reciperequirement_set.all())
+    def __str__(self):
+        return f"""title: {self.title}; price: {self.price}"""
+
 
 class RecipeRequirement(models.Model):
     """
@@ -45,15 +44,16 @@ class RecipeRequirement(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     quantity = models.FloatField(default=0.00)
 
-    def __str__(self):
-        return f"menu_item: {self.menu_item.title}; ingredients: {self.ingredient.name}; quantity: {self.quantity}"
-
     def get_absolute_url(self):
         return "/purchases"
+
+    def __str__(self):
+        return f"menu_item: {self.menu_item.title}; ingredients: {self.ingredient.name}; quantity: {self.quantity}"
 
     def is_enough(self):
         """return `True` if the ingredient quantity available meet the recipe's requirements"""
         return self.ingredient.quantity >= self.quantity
+
 
 class Purchase(models.Model):
     """
@@ -62,8 +62,8 @@ class Purchase(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"menu_item: {self.menu_item.title}; time: {self.timestamp}"
-
     def get_absolute_url(self):
         return "/purchases"
+
+    def __str__(self):
+        return f"menu_item: {self.menu_item.title}; time: {self.timestamp}"
