@@ -1,9 +1,11 @@
 from django.urls import path, include
 from . import views
-from django.contrib import admin
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 urlpatterns = [
+    path("logout/", views.log_out, name="logout"),
+    path('signup/', views.SignUp.as_view(), name='signup'),
+    path('account/login', include('django.contrib.auth.urls'), name='login'),
     path('', views.HomeView.as_view(), name='home'),
     path('ingredients/', views.IngredientsView.as_view(), name="ingredients"),
     path('ingredients/<pk>/update', views.UpdateIngredientView.as_view(), name="update_ingredient"),

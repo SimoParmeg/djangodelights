@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import MenuItem, RecipeRequirement, Ingredient, Purchase
 from django.views.generic import ListView, TemplateView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.db.models import Sum
@@ -19,6 +21,12 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context["menu_items"] = MenuItem.objects.all()
         context["purchases"] = Purchase.objects.all()
         return context
+
+
+class SignUp(CreateView):
+   form_class = UserCreationForm
+   success_url = reverse_lazy('login')
+   template_name = 'registration/signup.html'
 
 
 class IngredientsView(LoginRequiredMixin, ListView):
@@ -89,3 +97,8 @@ class ReportView(LoginRequiredMixin, TemplateView):
         context["profit"] = revenue - total_cost
 
         return context
+
+
+def log_out(request):
+    logout(request)
+    return redirect("/")
