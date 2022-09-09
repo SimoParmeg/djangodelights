@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.db.models import Sum
-from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm
+from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm, PurchaseForm
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
@@ -37,28 +37,40 @@ class AddIngredientView(LoginRequiredMixin, CreateView):
     model = Ingredient
     form_class = IngredientForm
 
+
 class DeleteIngredientView(LoginRequiredMixin, DeleteView):
     template_name = "inventory/delete_ingredients.html"
     model = Ingredient
     success_url = reverse_lazy('ingredients')
 
+
 class MenuItemView(LoginRequiredMixin, ListView):
     template_name = "inventory/menu_items.html"
     model = MenuItem
+
 
 class AddMenuItemView(LoginRequiredMixin, CreateView):
     template_name = "inventory/add_menu_items.html"
     model = MenuItem
     form_class = MenuItemForm
 
+
 class AddRecipeRequirements(LoginRequiredMixin, CreateView):
     template_name = "inventory/add_recipe_requirements.html"
     model = RecipeRequirement
     form_class = RecipeRequirementForm
 
+
 class PurchaseView(LoginRequiredMixin, ListView):
     template_name = "inventory/purchases.html"
     model = Purchase
+
+
+class AddPurchaseView(LoginRequiredMixin, CreateView):
+    template_name = "inventory/add_purchases.html"
+    model = Purchase
+    form_class = PurchaseForm
+
 
 class ReportView(LoginRequiredMixin, TemplateView):
     template_name = "inventory/reports.html"

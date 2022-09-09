@@ -13,5 +13,6 @@ urlpatterns = [
     path('menu/add', views.AddMenuItemView.as_view(), name="add_menu"),
     path('reciperequirement/add', views.AddRecipeRequirements.as_view(), name="add_recipe_requirement"),
     path('purchases/', views.PurchaseView.as_view(), name="purchases"),
+    path('purchases/add', views.AddPurchaseView.as_view(), name="add_purchase"),
     path('reports/', views.ReportView.as_view(), name="reports"),
 ]
