@@ -45,7 +45,7 @@ class RecipeRequirement(models.Model):
     quantity = models.FloatField(default=0.00)
 
     def get_absolute_url(self):
-        return "/purchases"
+        return "/menu"
 
     def __str__(self):
         return f"menu_item: {self.menu_item.title}; ingredients: {self.ingredient.name}; quantity: {self.quantity}"
