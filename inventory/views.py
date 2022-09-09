@@ -25,8 +25,15 @@ class IngredientsView(LoginRequiredMixin, ListView):
     template_name = "inventory/ingredients.html"
     model = Ingredient
 
+
 class UpdateIngredientView(LoginRequiredMixin, UpdateView):
     template_name = "inventory/update_ingredients.html"
+    model = Ingredient
+    form_class = IngredientForm
+
+
+class AddIngredientView(LoginRequiredMixin, CreateView):
+    template_name = "inventory/add_ingredient.html"
     model = Ingredient
     form_class = IngredientForm
 
