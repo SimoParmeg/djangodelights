@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
     <h2>Menu</h2>
+    <a href="{% url 'add_menus' %}">Add New Menu</a>
     <hr/>
     <ul class="menu-items">
     {% for menu_item in object_list %}
