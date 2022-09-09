@@ -4,6 +4,7 @@ from django.views.generic import ListView, TemplateView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.db.models import Sum
 from .forms import IngredientForm
 
 
@@ -37,6 +38,10 @@ class DeleteIngredientView(LoginRequiredMixin, DeleteView):
 class MenuItemView(LoginRequiredMixin, ListView):
     template_name = "inventory/menu_items.html"
     model = MenuItem
+
+class PurchaseView(LoginRequiredMixin, ListView):
+    template_name = "inventory/purchases.html"
+    model = Purchase
 
 class ReportView(LoginRequiredMixin, TemplateView):
     template_name = "inventory/reports.html"

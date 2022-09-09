@@ -24,7 +24,9 @@
         {% url 'ingredients' as ingredients_url %}
         <a class="nav-item{% if request.path == home_url %} current-page{% endif %}" href="{% url 'home' %}">Home</a>
         <a class="nav-item{% if request.path == ingredients_url %} current-page{% endif %}" href="{% url 'ingredients' %}">Ingredients</a>
-        <a class="nav-item{% if request.path == menu_item %} current-page{% endif %}" href="{% url 'menu' %}">Menu</a>
+        <a class="nav-item{% if request.path == menu_item %} current-page{% endif %}" href="{% url 'menus' %}">Menu</a>
+        <a class="nav-item{% if request.path == purchase %} current-page{% endif %}" href="{% url 'purchases' %}">Purchases</a>
+        <a class="nav-item{% if request.path == report %} current-page{% endif %}" href="{% url 'reports' %}">Reports</a>
       </nav>
     {% endif %}
   </header>
