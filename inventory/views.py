@@ -34,6 +34,10 @@ class DeleteIngredientView(LoginRequiredMixin, DeleteView):
     model = Ingredient
     success_url = reverse_lazy('ingredients')
 
+class MenuItemView(LoginRequiredMixin, ListView):
+    template_name = "inventory/menu_items.html"
+    model = MenuItem
+
 class ReportView(LoginRequiredMixin, TemplateView):
     template_name = "inventory/reports.html"
 
