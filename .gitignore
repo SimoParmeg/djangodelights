@@ -21,4 +21,4 @@ venv/
 .idea/
 
 
-djangodelights/settings.py
+/djangodelights/settings.py
