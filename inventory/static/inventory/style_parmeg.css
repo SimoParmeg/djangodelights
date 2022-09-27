@@ -134,7 +134,7 @@ main table {
     justify-content: space-between;
 }
 
-.logout {
+.button {
     height: max-content;
     text-align: center;
     text-decoration: none;
@@ -144,7 +144,7 @@ main table {
     color: white;
     padding: 10px;
     font-weight: bold;
-    margin: 30px;
+    margin: 10px;
     font-size: 1em;
 }
 
